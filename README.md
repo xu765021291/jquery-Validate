@@ -1,4 +1,4 @@
-# jquery-validation
+﻿# jquery-validation
   > 专门用于表单验证的jquery插件  
   > [github](https://github.com/naver/billboard.js)
   > [官方](https://jqueryvalidation.org/)
@@ -42,3 +42,26 @@
   15	range:[5,10]	输入值必须介于 5 和 10 之间。
   16	max:5	输入值不能大于 5。
   17	min:10	输入值不能小于 10。
+
+
+## jquery表单提交插件
+> 专用用来提交表单，可以用来代替jquery的ajax方法
+> $('form').submitForm(options)
+> 下载: `npm install jquery-form`
+> 使用: 
+1.引包
+调用:
+```js
+// ajaxSubmit会异步将表单的数据自动发给后端
+// $().ser
+// ajaxSubmit方法与ajax方法 发ajax请求时区别在于,
+// 这个方法会自动获取表单中的数据，发给后端 ，ajax方法需要我们自己去获取数据!
+$('form').ajaxSubmit({
+        url: '/api/teacher/add',
+        type: 'post',
+        // data: {xxxxx: 'hello'}, 可以使用data, 添加的data中的数据也会被发给后端
+        success: function (data) {
+          $('form')[0].reset()
+        }
+})
+```
