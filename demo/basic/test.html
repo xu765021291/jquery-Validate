@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <form class="cmxform">
+    <fieldset>
+      <legend>通过type属性和其他属性对表单进行验证, required是针对于内容为空的情况</legend>
+      <div>
+        <lable for="name"> 要求输入至少6个字符串， 最多12个字符, 不能为空 </lable>
+        <input id="name" name="my_name"  type="text">
+      </div>
+      <div>
+        <lable id="email">请输入一个邮箱</lable>
+        <input name="my_email"  type="email">
+      </div>
+      <div>
+        <label>需要输入一个url地址</label>
+        <input name="my_url"  type="text">
+      </div>
+      <div>
+        <button>提交</button>
+      </div>
+    </fieldset>
+  </form>
+<script src="./node_modules/jquery/dist/jquery.js"></script>
+<script src="./node_modules/jquery-validation/dist/jquery.validate.js"></script>
+<script src="./node_modules/jquery-validation/dist/localization/messages_zh.js"></script>
+<script>
+ 
+  $('form').validate({
+    // debug: true,
+        // debug: true,
+    // onfocusout: true,
+    onkeyup: function () {
+      // console.log(111)
+      $('form').valid()
+    },
+    // // onsubmit: false,
+    invalidHandler: function () {
+      console.log('invaldHandler')
+      console.log(arguments)
+    },
+    submitHandler: function () {
+      console.log('test')
+      console.log(arguments)
+    },
+    rules: {
+    // simple rule, converted to {required:true}
+      my_name: {
+        required: true,
+        date: true
+      },
+    // compound rule
+      my_email: {
+        required: true,
+        // email: true
+        email: {
+          // 除了是email, 这依赖于这个返回值
+          depends: function (element) {
+            return true
+          }
+        },
+        check: true
+      }
+    },
+    messages: {
+      my_name: {
+        required: '哈哈，必填',
+        date: '日期'
+      },
+      my_email: {
+        required: '必填xx',
+        email: '邮箱'
+      }
+    }
+  })
+   //自定义正则表达示验证方法  
+    $.validator.addMethod("check",function(value,element,params){  
+            // var checkQQ = /^[1-9][0-9]{4,19}$/;  
+            // return this.optional(element)||(checkQQ.test(value));  
+            return false
+        },"*请输入正确的QQ号码！");
+</script>
+</body>
+</html>
